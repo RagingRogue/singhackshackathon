@@ -1,0 +1,16 @@
+{
+  "TravelEasy": {
+    "medical_coverage": 50000,
+    "trip_cancellation": 5000,
+    "baggage_loss": 1000,
+    "covid_coverage": true,
+    "sports_addon": false
+  },
+  "Scootsurance": {
+    "medical_coverage": 30000,
+    "trip_cancellation": 2000,
+    "baggage_loss": 800,
+    "covid_coverage": true,
+    "sports_addon": true
+  }
+}
