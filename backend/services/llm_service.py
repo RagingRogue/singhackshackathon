@@ -15,14 +15,14 @@ with open("data/insurance_risk_knowledge.json", "r", encoding="utf-8") as f:
 
 # --- 3️⃣ Helper: find matching destination ---
 def find_destination_info(dest: str):
-    """Finds destination info from the JSON knowledge base."""
+    """Find destination info from the JSON knowledge base."""
     for record in KNOWLEDGE:
         if record["destination"].lower() == dest.lower():
             return record
     return None
 
 
-# --- 4️⃣ Helper: select a medical limit for quoting ---
+# --- 4️⃣ Helper: select medical limit for quoting ---
 def pick_med_limit(benefit):
     if getattr(benefit, "max_limit", None):
         return benefit.max_limit
@@ -31,7 +31,7 @@ def pick_med_limit(benefit):
     return 0.0
 
 
-# --- 5️⃣ Helper: build an insurance quote dynamically ---
+# --- 5️⃣ Helper: build a quote dynamically ---
 def get_quote(product_path, product_name, age, destination_risk, trip_days=10):
     try:
         policy = normalize_policy(product_path, product_name)
@@ -47,7 +47,6 @@ def get_quote(product_path, product_name, age, destination_risk, trip_days=10):
             destination_risk=destination_risk,
             include_cancellation=False,
             trip_cost=0.0,
-            plan_tier="base",
             gst_pct=0.09,
             minimum_premium=25.0,
         )
@@ -61,10 +60,10 @@ def get_quote(product_path, product_name, age, destination_risk, trip_days=10):
 def ask_llm(user_input):
     """
     Takes a user's message, extracts destination, computes risk,
-    builds a quote, and sends context + reasoning to Groq LLM.
+    builds quotes for available policies, and sends context + reasoning to Groq LLM.
     """
 
-    # --- Defensive input handling ---
+    # Defensive input handling
     if not isinstance(user_input, str):
         try:
             if isinstance(user_input, list) and len(user_input) > 0:
@@ -76,7 +75,7 @@ def ask_llm(user_input):
         except Exception:
             user_input = str(user_input)
 
-    # --- Destination matching ---
+    # Destination matching
     dest = None
     info = None
     for record in KNOWLEDGE:
@@ -85,10 +84,9 @@ def ask_llm(user_input):
             info = record
             break
 
-    # --- Build context ---
     context = ""
+    quotes = []
     adjusted_risk = None
-    quote = None
 
     if info:
         adjusted_risk = info["risk_score"]
@@ -98,22 +96,16 @@ def ask_llm(user_input):
             f"Average Claim Cost: {info['avg_claim_cost']} SGD\n"
             f"Peak Months: {', '.join(info['peak_months'])}\n"
             f"Dominant Claim Types: "
-            + ", ".join(
-                [f"{c['type']} ({c['percentage']}%)" for c in info['dominant_claims']]
-            )
-            + f"\nRecommended Plan: {info['recommendation']}."
+            + ", ".join([f"{c['type']} ({c['percentage']}%)" for c in info['dominant_claims']])
+            + f"\nInsights based on historical claims data."
         )
 
-        # --- Quote generation logic (inserted here) ---
+        # Quote generation for both policies
         try:
             policy_files = {
                 "TravelEasy": "policy_data/Policy_Wordings/TravelEasy Policy QTD032212.pdf",
                 "Scootsurance": "policy_data/Policy_Wordings/Scootsurance QSR022206_updated.pdf",
             }
-
-            # Choose plan based on risk
-            product_name = "TravelEasy" if adjusted_risk < 0.5 else "Scootsurance"
-            product_path = policy_files[product_name]
 
             # Convert risk_score to category
             if adjusted_risk < 0.3:
@@ -123,43 +115,49 @@ def ask_llm(user_input):
             else:
                 risk_label = "high"
 
-            quote = get_quote(
-                product_path=product_path,
-                product_name=product_name,
-                age=30,
-                destination_risk=risk_label,
-                trip_days=10,
-            )
+            for product_name, product_path in policy_files.items():
+                quote = get_quote(
+                    product_path=product_path,
+                    product_name=product_name,
+                    age=30,
+                    destination_risk=risk_label,
+                    trip_days=10,
+                )
+                if quote:
+                    quotes.append(quote)
+
         except Exception as e:
             print("⚠️ Quote generation failed:", e)
 
     # --- Build AI prompt ---
     system_prompt = (
         "You are an AI travel insurance advisor. "
-        "You use real claim data and insurance policy rules to recommend plans. "
-        "If quote data is available, include it clearly in your response. "
-        "Be concise and explain why the recommendation fits the user's trip."
+        "Use real claim data and policy information to compare plans "
+        "and recommend the best option for the user's trip. "
+        "Always explain your reasoning clearly and concisely."
     )
 
     messages = [{"role": "system", "content": system_prompt}]
 
-    # Add claim/risk context
+    # Add context
     if context:
         messages.append({"role": "assistant", "content": f"Context:\n{context}"})
 
-    # Add quote context if available
-    if quote:
-        qtext = (
-            f"\nQuote for {quote['product']}: {quote['currency']} {int(quote['medical_limit']):,} medical coverage, "
-            f"{quote['trip_days']} days, estimated premium SGD {quote['premium_sgd']:.2f} "
-            f"(core={quote['breakdown']['pretax_core']:.2f}, tax={quote['breakdown']['tax_amount']:.2f})."
+    # Add quote details
+    if quotes:
+        quote_text = "\n\n".join(
+            [
+                f"Quote for {q['product']}: {q['currency']} {int(q['medical_limit']):,} medical coverage, "
+                f"{q['trip_days']} days, estimated premium SGD {q['premium_sgd']:.2f} "
+                f"(core={q['breakdown']['pretax_core']:.2f}, tax={q['breakdown']['tax_amount']:.2f})"
+                for q in quotes
+            ]
         )
-        messages.append({"role": "assistant", "content": f"Quote:\n{qtext}"})
+        messages.append({"role": "assistant", "content": f"Available Quotes:\n{quote_text}"})
 
-    # Finally add the user’s question
     messages.append({"role": "user", "content": user_input})
 
-    # --- Call Groq LLM ---
+    # Call Groq
     completion = client.chat.completions.create(
         model="openai/gpt-oss-20b",
         messages=messages,
