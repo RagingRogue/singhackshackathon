@@ -1,0 +1,23 @@
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# VSCode / IntelliJ project files
+.idea/
+.vscode/
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
+
+# Uvicorn logs or temp files
+*.log
+
+# Build or cache
+*.egg-info/
+dist/
+build/

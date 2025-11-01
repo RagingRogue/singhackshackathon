@@ -8,18 +8,35 @@ function App() {
 
   const sendMessage = async () => {
     if (!input.trim()) return;
+
+    // Add user message to chat
     const userMsg = { role: "user", content: input };
-    setMessages([...messages, userMsg]);
+    setMessages((prev) => [...prev, userMsg]);
     setInput("");
 
-    const res = await axios.post("http://127.0.0.1:8000/chat", { message: input });
-    const botMsg = { role: "assistant", content: res.data.reply };
-    setMessages((msgs) => [...msgs, botMsg]);
+    try {
+      const res = await axios.post("http://127.0.0.1:8000/chat", {
+        message: input,
+      });
+
+      const botMsg = {
+        role: "assistant",
+        content: res.data.reply,
+      };
+      setMessages((prev) => [...prev, botMsg]);
+    } catch (err) {
+      console.error(err);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "❌ Server error. Try again later." },
+      ]);
+    }
   };
 
   return (
     <div className="chat-container">
       <h1>🧭 Milo — Insurance Chatbot</h1>
+
       <div className="chat-box">
         {messages.map((m, i) => (
           <p key={i} className={m.role}>
@@ -27,10 +44,12 @@ function App() {
           </p>
         ))}
       </div>
+
       <div className="input-box">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           placeholder="Ask me about travel insurance..."
         />
         <button onClick={sendMessage}>Send</button>
