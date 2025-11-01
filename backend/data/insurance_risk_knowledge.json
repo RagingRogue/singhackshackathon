@@ -1,0 +1,335 @@
+[
+  {
+    "destination": "Thailand",
+    "risk_score": 0.606,
+    "claim_count": 0,
+    "avg_claim_cost": 258.2,
+    "peak_months": [
+      "January",
+      "March",
+      "April"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Medical Expenses",
+        "percentage": 58.35,
+        "avg_cost": 152.14
+      },
+      {
+        "type": "Delay/Disrupt/Miscon/Over",
+        "percentage": 10.41,
+        "avg_cost": 284.72
+      },
+      {
+        "type": "Baggage Loss",
+        "percentage": 8.41,
+        "avg_cost": 184.16
+      }
+    ],
+    "recommendation": "Silver plan based on claim trends"
+  },
+  {
+    "destination": "Vietnam",
+    "risk_score": 0.558,
+    "claim_count": 0,
+    "avg_claim_cost": 262.53,
+    "peak_months": [
+      "April",
+      "January",
+      "May"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Medical Expenses",
+        "percentage": 54.66,
+        "avg_cost": 150.23
+      },
+      {
+        "type": "Delay/Disrupt/Miscon/Over",
+        "percentage": 11.53,
+        "avg_cost": 311.06
+      },
+      {
+        "type": "Baggage Loss",
+        "percentage": 9.34,
+        "avg_cost": 201.15
+      }
+    ],
+    "recommendation": "Silver plan based on claim trends"
+  },
+  {
+    "destination": "China",
+    "risk_score": 0.5,
+    "claim_count": 0,
+    "avg_claim_cost": 282.78,
+    "peak_months": [
+      "April",
+      "June",
+      "January"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Medical Expenses",
+        "percentage": 60.08,
+        "avg_cost": 151.95
+      },
+      {
+        "type": "Delay/Disrupt/Miscon/Over",
+        "percentage": 12.84,
+        "avg_cost": 280.87
+      },
+      {
+        "type": "Baggage Loss",
+        "percentage": 10.32,
+        "avg_cost": 239.19
+      }
+    ],
+    "recommendation": "Silver plan based on claim trends"
+  },
+  {
+    "destination": "Malaysia",
+    "risk_score": 0.496,
+    "claim_count": 0,
+    "avg_claim_cost": 313.76,
+    "peak_months": [
+      "June",
+      "April",
+      "January"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Medical Expenses",
+        "percentage": 48.98,
+        "avg_cost": 150.95
+      },
+      {
+        "type": "Delay/Disrupt/Miscon/Over",
+        "percentage": 12.81,
+        "avg_cost": 286.91
+      },
+      {
+        "type": "Baggage Loss",
+        "percentage": 10.42,
+        "avg_cost": 185.62
+      }
+    ],
+    "recommendation": "Bronze plan based on claim trends"
+  },
+  {
+    "destination": "UK",
+    "risk_score": 0.413,
+    "claim_count": 0,
+    "avg_claim_cost": 8829.53,
+    "peak_months": [
+      "January",
+      "February",
+      "April"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Medical Expenses",
+        "percentage": 92.94,
+        "avg_cost": 9388.35
+      },
+      {
+        "type": "Others",
+        "percentage": 3.89,
+        "avg_cost": 1365.56
+      },
+      {
+        "type": "Damage",
+        "percentage": 2.92,
+        "avg_cost": 1561.58
+      }
+    ],
+    "recommendation": "Bronze plan based on claim trends"
+  },
+  {
+    "destination": "USA",
+    "risk_score": 0.278,
+    "claim_count": 0,
+    "avg_claim_cost": 5790.14,
+    "peak_months": [
+      "January",
+      "February",
+      "April"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Medical Expenses",
+        "percentage": 95.38,
+        "avg_cost": 5999.16
+      },
+      {
+        "type": "Others",
+        "percentage": 2.89,
+        "avg_cost": 1521.4
+      },
+      {
+        "type": "Damage",
+        "percentage": 1.54,
+        "avg_cost": 1415.5
+      }
+    ],
+    "recommendation": "Bronze plan based on claim trends"
+  },
+  {
+    "destination": "Japan",
+    "risk_score": 0.259,
+    "claim_count": 0,
+    "avg_claim_cost": 1089.98,
+    "peak_months": [
+      "April",
+      "January",
+      "June"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Delay/Disrupt/Miscon/Over",
+        "percentage": 29.06,
+        "avg_cost": 283.67
+      },
+      {
+        "type": "Baggage Loss",
+        "percentage": 23.71,
+        "avg_cost": 200.98
+      },
+      {
+        "type": "Cancel/Curtailment/Postpo",
+        "percentage": 19.38,
+        "avg_cost": 762.88
+      }
+    ],
+    "recommendation": "Bronze plan based on claim trends"
+  },
+  {
+    "destination": "Australia",
+    "risk_score": 0.216,
+    "claim_count": 0,
+    "avg_claim_cost": 4493.78,
+    "peak_months": [
+      "March",
+      "February",
+      "April"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Medical Expenses",
+        "percentage": 97.35,
+        "avg_cost": 4571.02
+      },
+      {
+        "type": "Others",
+        "percentage": 2.65,
+        "avg_cost": 1655.08
+      }
+    ],
+    "recommendation": "Bronze plan based on claim trends"
+  },
+  {
+    "destination": "Indonesia",
+    "risk_score": 0.108,
+    "claim_count": 0,
+    "avg_claim_cost": 123.68,
+    "peak_months": [
+      "May",
+      "February",
+      "January"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Medical Expenses",
+        "percentage": 53.67,
+        "avg_cost": 156.9
+      },
+      {
+        "type": "Damage",
+        "percentage": 46.17,
+        "avg_cost": 85.29
+      },
+      {
+        "type": "TP Property Damage",
+        "percentage": 0.16,
+        "avg_cost": 60.8
+      }
+    ],
+    "recommendation": "Bronze plan based on claim trends"
+  },
+  {
+    "destination": "France",
+    "risk_score": 0.071,
+    "claim_count": 0,
+    "avg_claim_cost": 1675.71,
+    "peak_months": [
+      "February",
+      "March",
+      "April"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Others",
+        "percentage": 77.14,
+        "avg_cost": 1415.07
+      },
+      {
+        "type": "Damage",
+        "percentage": 20.0,
+        "avg_cost": 1441.86
+      },
+      {
+        "type": "TP Property Damage",
+        "percentage": 2.86,
+        "avg_cost": 10350.0
+      }
+    ],
+    "recommendation": "Bronze plan based on claim trends"
+  },
+  {
+    "destination": "Germany",
+    "risk_score": 0.064,
+    "claim_count": 0,
+    "avg_claim_cost": 1516.63,
+    "peak_months": [
+      "May",
+      "March",
+      "April"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Others",
+        "percentage": 60.0,
+        "avg_cost": 1385.95
+      },
+      {
+        "type": "Damage",
+        "percentage": 37.14,
+        "avg_cost": 1680.0
+      },
+      {
+        "type": "TP Property Damage",
+        "percentage": 2.86,
+        "avg_cost": 2137.0
+      }
+    ],
+    "recommendation": "Bronze plan based on claim trends"
+  },
+  {
+    "destination": "Hong Kong",
+    "risk_score": 0.06,
+    "claim_count": 0,
+    "avg_claim_cost": 150.19,
+    "peak_months": [
+      "March",
+      "June",
+      "January"
+    ],
+    "dominant_claims": [
+      {
+        "type": "Medical Expenses",
+        "percentage": 100.0,
+        "avg_cost": 150.19
+      }
+    ],
+    "recommendation": "Bronze plan based on claim trends"
+  }
+]
