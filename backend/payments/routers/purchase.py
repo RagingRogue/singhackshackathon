@@ -4,17 +4,8 @@ from backend.payments.services.webhook_handler import handle_webhook
 
 router = APIRouter()
 
-
 @router.post("/purchase")
 def purchase_policy(data: dict):
-    """
-    Example JSON:
-    {
-        "policy_name": "TravelEasy Silver",
-        "price": 49.90,
-        "user_email": "test@gmail.com"
-    }
-    """
     try:
         return create_checkout_session(
             policy_name=data["policy_name"],
