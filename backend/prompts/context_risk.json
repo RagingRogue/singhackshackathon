@@ -1,0 +1,13 @@
+{
+  "type": "risk_advisory",
+  "instructions": [
+    "Summarize key backend fields: risk_score, avg_claim_cost, peak_months, dominant_claims, and recommended plan.",
+    "Explain what the risk score implies in simple terms.",
+    "Mention 1–2 claim types that dominate and what that means for insurance choice.",
+    "Conclude with a clear recommendation: e.g., 'A Silver plan fits best for moderate risk destinations like Thailand.'"
+  ],
+  "output_format": {
+    "sections": ["Destination", "Risk Score", "Top Claims", "Recommendation"],
+    "tone": "conversational, grounded, factual"
+  }
+}

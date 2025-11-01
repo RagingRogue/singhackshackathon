@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 from core.memory import get_session
-from services.llm_service import ask_llm
+from agents.controller import handle_message
 
 router = APIRouter()
 
@@ -13,14 +13,13 @@ class ChatRequest(BaseModel):
 async def chat(req: ChatRequest):
     user_id = req.user_id
     session = get_session(user_id)
-
-    # add user message
     session.append({"role": "user", "content": req.message})
 
-    # call model
-    reply = ask_llm(session)
+    # Step 1: use agentic controller (routes to correct handler)
+    reply = handle_message(req.message)
 
-    # store reply
+    # Step 2: store reply in memory
     session.append({"role": "assistant", "content": reply})
 
     return {"reply": reply}
+

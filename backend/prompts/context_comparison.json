@@ -1,0 +1,12 @@
+{
+  "type": "policy_comparison",
+  "instructions": [
+    "Use the backend policy table to compare coverage, medical limits, and unique add-ons.",
+    "List differences in a markdown table with ✅ and ❌ icons.",
+    "Always conclude with a summary recommendation based on user’s described trip."
+  ],
+  "output_format": {
+    "sections": ["Feature Comparison", "Summary Recommendation"],
+    "tone": "objective and data-driven"
+  }
+}
