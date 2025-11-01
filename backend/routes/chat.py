@@ -18,7 +18,8 @@ async def chat(req: ChatRequest):
     session.append({"role": "user", "content": req.message})
 
     # call model
-    reply = ask_llm(session)
+    reply = ask_llm(req.message)
+    
 
     # store reply
     session.append({"role": "assistant", "content": reply})
