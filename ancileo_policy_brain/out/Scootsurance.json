@@ -1,0 +1,83 @@
+{
+  "product_name": "Scootsurance",
+  "version": null,
+  "eligibility": {
+    "min_age": null,
+    "max_age": null,
+    "residency": null,
+    "trip_duration_max_days": null,
+    "citations": []
+  },
+  "benefits": {
+    "medical": {
+      "currency": "SGD",
+      "max_limit": 100000.0,
+      "per": "trip",
+      "sublimits": {
+        "tcm": 200.0,
+        "dental": 50000.0
+      },
+      "deductible": null,
+      "notes": null,
+      "citations": [
+        {
+          "pdf": "data/Policy_Wordings/Scootsurance QSR022206_updated.pdf",
+          "page": 1,
+          "text_snippet": "12 to 69 years old $100,000"
+        },
+        {
+          "pdf": "data/Policy_Wordings/Scootsurance QSR022206_updated.pdf",
+          "page": 1,
+          "text_snippet": "12 to 69 years old $100,000"
+        },
+        {
+          "pdf": "data/Policy_Wordings/Scootsurance QSR022206_updated.pdf",
+          "page": 1,
+          "text_snippet": "70 to 74 years old $50,000"
+        },
+        {
+          "pdf": "data/Policy_Wordings/Scootsurance QSR022206_updated.pdf",
+          "page": 1,
+          "text_snippet": "Below 12 years old $10,000"
+        },
+        {
+          "pdf": "data/Policy_Wordings/Scootsurance QSR022206_updated.pdf",
+          "page": 2,
+          "text_snippet": "TCM, physiotherapy, $200"
+        },
+        {
+          "pdf": "data/Policy_Wordings/Scootsurance QSR022206_updated.pdf",
+          "page": 1,
+          "text_snippet": "Emergency Dental Expenses due to Accident $50,000"
+        }
+      ],
+      "age_bands": {
+        "12-69": 100000.0,
+        "70-74": 50000.0,
+        "<12": 10000.0
+      }
+    }
+  },
+  "exclusions": {
+    "pre_existing": "ave human\nlife); or\n(d) Any deliberate, malicious, criminal or unlawful acts committed by You or any person acting on Your behalf\n2. Medical Exclusions\n(a) Any Pre-Existing Medical Conditions, including congenital conditions\n(b) Travelling against the advice of a Doctor or for the purpose of seeking medical treatment\n(c) Pregnancy, menopause, childbirth, abortion or miscarriage and all related conditions\n(d) Any medical treatment which, in the opinion of the attending Doctor could have been reasonable delayed until You\nreturn to Singapore\n(e) Human Immunodeficiency Virus (HIV), HIV related illnesses, AIDS and/or any sexually transmitted disease\n(f) Any mental illness, nervous disorder, anxiety state, insanity or depression\n(g) The cost of any exploratory tests, which are not directly related to the Illness or Injury\n(h) Any form of cosmetic surgery or treatment\n(i) Any expenses in respect of normal dental inspection or treatment or in obtaining dentures, retainer or eyeglasses or the\nlike or hearing aids or prosthesis and corrective devices\n(j) Treatment or service provided by a health spa, convalescent or nursing home or any rehabilitation centre\n(k) Any claim if You are under treatment not recommended by or carried out by a Doctor, Dentist or TCM practitioner\n3. Activity Exclusions\nWhen You take part in the following activities:\n(a) Flying or other aerial activities except as a fare-paying passenger on a Scheduled Flight\n(b) Any sports t",
+    "high_risk_activities": "involving exceptional speed and height, high level of\nexpertise, exceptional physical exertion or highly specialised gear or stunts) such as big wave surfing, off-piste skiing,\ncliff jumping, high diving or jumping, free diving, horse jumping, hunting, potholing, ultra-marathons, triathlons and\nstunt riding\n(d) Mountaineering",
+    "war_terrorism": "& Money $1,000 $1,000\n• Max $300 for Loss of Money\n19 Personal Liability whilst Overseas $500,000 N.A.\n20 Hijacking $2,000 N.A.\n• Pays $100 per 6 hours\n21 Full Terrorism Cover Included Included\nEMERGENCY MEDICAL AND TRAVEL ASSISTANCE HOTLINE\n22 24-hour Emergency Medical Assistance Included N.A.\n23 24-Hour Travel Assistance Incl",
+    "citations": [
+      {
+        "pdf": "data/Policy_Wordings/Scootsurance QSR022206_updated.pdf",
+        "page": 23,
+        "text_snippet": "ave human\nlife); or\n(d) Any deliberate, malicious, criminal or unlawful acts committed by You or any person acting on Your behalf\n2. Medical Exclusions\n(a) Any Pre-Existing Medical Conditions, including congenital conditions\n(b) Travelling against the advice of a Doctor or for the purpose of seeking medical treatment\n(c) Pregnancy, menopause, childbirth, abortion or miscarriage and all related conditions\n(d) Any medical treatment which, in the opinion of the attending Doctor could have been reasonable delayed until You\nreturn to Singapore\n(e) Human Immunodeficiency Virus (HIV), HIV related illnesses, AIDS and/or any sexually transmitted disease\n(f) Any mental illness, nervous disorder, anxiety state, insanity or depression\n(g) The cost of any exploratory tests, which are not directly related to the Illness or Injury\n(h) Any form of cosmetic surgery or treatment\n(i) Any expenses in respect of normal dental inspection or treatment or in obtaining dentures, retainer or eyeglasses or the\nlike or hearing aids or prosthesis and corrective devices\n(j) Treatment or service provided by a health spa, convalescent or nursing home or any rehabilitation centre\n(k) Any claim if You are under treatment not recommended by or carried out by a Doctor, Dentist or TCM practitioner\n3. Activity Exclusions\nWhen You take part in the following activities:\n(a) Flying or other aerial activities except as a fare-paying passenger on a Scheduled Flight\n(b) Any sports t"
+      },
+      {
+        "pdf": "data/Policy_Wordings/Scootsurance QSR022206_updated.pdf",
+        "page": 23,
+        "text_snippet": "involving exceptional speed and height, high level of\nexpertise, exceptional physical exertion or highly specialised gear or stunts) such as big wave surfing, off-piste skiing,\ncliff jumping, high diving or jumping, free diving, horse jumping, hunting, potholing, ultra-marathons, triathlons and\nstunt riding\n(d) Mountaineering"
+      },
+      {
+        "pdf": "data/Policy_Wordings/Scootsurance QSR022206_updated.pdf",
+        "page": 2,
+        "text_snippet": "& Money $1,000 $1,000\n• Max $300 for Loss of Money\n19 Personal Liability whilst Overseas $500,000 N.A.\n20 Hijacking $2,000 N.A.\n• Pays $100 per 6 hours\n21 Full Terrorism Cover Included Included\nEMERGENCY MEDICAL AND TRAVEL ASSISTANCE HOTLINE\n22 24-hour Emergency Medical Assistance Included N.A.\n23 24-Hour Travel Assistance Incl"
+      }
+    ]
+  }
+}

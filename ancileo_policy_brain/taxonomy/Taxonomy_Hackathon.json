@@ -1,0 +1,14 @@
+{
+  "taxonomy_name": "Travel Insurance Product Taxonomy (lite starter)",
+  "layers": {
+    "layer_1_general_conditions": [
+      "eligibility",
+      "general_exclusions"
+    ],
+    "layer_2_benefits": [
+      "medical",
+      "trip_cancellation",
+      "baggage"
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "product_name": "TravelEasy",
+  "version": null,
+  "eligibility": {
+    "min_age": 1,
+    "max_age": 8,
+    "residency": null,
+    "trip_duration_max_days": null,
+    "citations": [
+      {
+        "pdf": "data/Policy_Wordings/TravelEasy Policy QTD032212.pdf",
+        "page": 13,
+        "text_snippet": "ort or accommodation\nof the altered travel itinerary must not be of higher class or category that which was\npurchased in the original itinerary.\nAdult A person aged 18 years or above at the start of any trip.\nChild, children A person who is aged over one month and below 18 years, or below 23 years if\nstudying full-time in a recogni"
+      }
+    ]
+  },
+  "benefits": {
+    "medical": {
+      "currency": "SGD",
+      "max_limit": 75000.0,
+      "per": "trip",
+      "sublimits": {},
+      "deductible": null,
+      "notes": null,
+      "citations": [
+        {
+          "pdf": "data/Policy_Wordings/TravelEasy Policy QTD032212.pdf",
+          "page": 7,
+          "text_snippet": "medical expenses\nAdult below 70 years $75,000"
+        },
+        {
+          "pdf": "data/Policy_Wordings/TravelEasy Policy QTD032212.pdf",
+          "page": 7,
+          "text_snippet": "adult and children cover $4,500"
+        }
+      ],
+      "age_bands": {
+        "12-69": 4500.0
+      }
+    }
+  },
+  "exclusions": {
+    "pre_existing": "t was done and not the date which the test results are\nreleased;\n5. vaccination, including the side effects and complications resulting from vaccination; or\n6. pre-existing medical condition and its complications, regardless of whether it is resulting from or complicated by\nCOVID-19 infection.\nQTD032212 | Page 6 of 68",
+    "high_risk_activities": "ane;\n3. canoeing or white-water rafting with a qualified guide and up to Grade 3 (of International Scale of River Difficulty);\n4. jet skiing, helmet diving;\n5. scuba diving, up to the qualified depth of the insured person’s diving certification, and at all times accompanied by a\nqualified dive instructor or dive master and",
+    "war_terrorism": "i) both the insured person and travel companion have not been in close contact with suspected or confirmed\nCOVID-19 person or received notification/health risk warning issued by the Singapore government.\nIf any of the conditions above are not met, we will not pay claims under sections 21, 22 and 23. The other sections of",
+    "citations": [
+      {
+        "pdf": "data/Policy_Wordings/TravelEasy Policy QTD032212.pdf",
+        "page": 6,
+        "text_snippet": "t was done and not the date which the test results are\nreleased;\n5. vaccination, including the side effects and complications resulting from vaccination; or\n6. pre-existing medical condition and its complications, regardless of whether it is resulting from or complicated by\nCOVID-19 infection.\nQTD032212 | Page 6 of 68"
+      },
+      {
+        "pdf": "data/Policy_Wordings/TravelEasy Policy QTD032212.pdf",
+        "page": 41,
+        "text_snippet": "ane;\n3. canoeing or white-water rafting with a qualified guide and up to Grade 3 (of International Scale of River Difficulty);\n4. jet skiing, helmet diving;\n5. scuba diving, up to the qualified depth of the insured person’s diving certification, and at all times accompanied by a\nqualified dive instructor or dive master and"
+      },
+      {
+        "pdf": "data/Policy_Wordings/TravelEasy Policy QTD032212.pdf",
+        "page": 1,
+        "text_snippet": "i) both the insured person and travel companion have not been in close contact with suspected or confirmed\nCOVID-19 person or received notification/health risk warning issued by the Singapore government.\nIf any of the conditions above are not met, we will not pay claims under sections 21, 22 and 23. The other sections of"
+      }
+    ]
+  }
+}
