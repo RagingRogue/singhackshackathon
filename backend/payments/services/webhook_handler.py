@@ -1,45 +1,42 @@
 import os
 import stripe
-import boto3
 from dotenv import load_dotenv
+import boto3
+from fastapi import APIRouter, Header, HTTPException, Request
 
-# Load .env
-load_dotenv(dotenv_path="backend/payments/.env")
-
-# Stripe API and webhook secret
+load_dotenv()
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
-endpoint_secret = os.getenv("STRIPE_WEBHOOK_SECRET")
+WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
 
-# DynamoDB table
 dynamodb = boto3.resource("dynamodb", region_name="ap-southeast-1")
 table = dynamodb.Table("Payments")
 
-def handle_webhook(payload, sig_header):
+router = APIRouter(prefix="/webhook", tags=["Stripe Webhook"])
+LATEST_PAYMENT_STATUS = "None"
+
+@router.post("/stripe")
+async def stripe_webhook(request: Request, stripe_signature: str = Header(None)):
+    global LATEST_PAYMENT_STATUS
+    payload = await request.body()
+
     try:
-        # Verify webhook signature from Stripe
         event = stripe.Webhook.construct_event(
-            payload, sig_header, endpoint_secret
+            payload, stripe_signature, WEBHOOK_SECRET
+        )
+    except Exception:
+        raise HTTPException(status_code=400, detail="Webhook signature failed")
+
+    if event["type"] == "checkout.session.completed":
+        session = event["data"]["object"]
+        session_id = session["id"]
+
+        table.update_item(
+            Key={"transaction_id": session_id},
+            UpdateExpression="SET #s = :s",
+            ExpressionAttributeNames={"#s": "status"},
+            ExpressionAttributeValues={":s": "success"}
         )
 
-        if event["type"] == "checkout.session.completed":
-            session = event["data"]["object"]
-            transaction_id = session["id"]
+        LATEST_PAYMENT_STATUS = "✅ Payment completed!"
 
-            print(f"✅ Payment successful for session: {transaction_id}")
-
-            # ✅ Update DynamoDB record to paid
-            table.update_item(
-                Key={"transaction_id": transaction_id},
-                UpdateExpression="SET #status = :s, updated_at = :t",
-                ExpressionAttributeNames={"#status": "status"},
-                ExpressionAttributeValues={
-                    ":s": "paid",
-                    ":t": session.get("created")
-                }
-            )
-
-        return {"status": "success"}
-
-    except Exception as e:
-        print("❌ Webhook error:", str(e))
-        return {"status": "error", "message": str(e)}
+    return {"status": "received"}

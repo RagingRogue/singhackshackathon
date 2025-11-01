@@ -1,22 +1,24 @@
-from fastapi import APIRouter, Request, HTTPException
-from backend.payments.services.stripe_service import create_checkout_session
-from backend.payments.services.webhook_handler import handle_webhook
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+from ..services.stripe_service import create_checkout_session
+from ..services.webhook_handler import LATEST_PAYMENT_STATUS
 
-router = APIRouter()
+router = APIRouter(prefix="/payments", tags=["Payments"])
+
+class PurchaseRequest(BaseModel):
+    policy_name: str
 
 @router.post("/purchase")
-def purchase_policy(data: dict):
+async def purchase(req: PurchaseRequest):
     try:
-        return create_checkout_session(
-            policy_name=data["policy_name"],
-            price=data["price"],
-            user_email=data.get("user_email")
-        )
+        result = create_checkout_session(req.policy_name)
+        return {
+            "message": "Checkout session created",
+            "checkout_url": result["checkout_url"]
+        }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
 
-@router.post("/webhook")
-async def stripe_webhook(request: Request):
-    payload = await request.body()
-    sig_header = request.headers.get("stripe-signature")
-    return handle_webhook(payload, sig_header)
+@router.get("/status")
+async def get_status():
+    return {"latest_payment_status": LATEST_PAYMENT_STATUS}

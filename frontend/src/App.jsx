@@ -39,31 +39,92 @@ function App() {
     }
   }, [messages]);
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
+useEffect(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get("payment") === "success") {
+    axios.get("http://127.0.0.1:8000/api/payment-status").then((res) => {
+      if (res.data.status === "success") {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: "✅ Payment successful! Your policy has been issued and sent to your email."
+          }
+        ]);
+      }
+    });
+  }
+}, []);
 
-    const userMsg = { role: "user", content: input };
-    setMessages((prev) => [...prev, userMsg]);
-    setInput("");
-    setLoading(true);
+ const sendMessage = async () => {
+  if (!input.trim()) return;
 
-    try {
+  const userMsg = { role: "user", content: input };
+  setMessages((prev) => [...prev, userMsg]);
+  setInput("");
+  setLoading(true);
+
+  try {
+    // ✅ If user explicitly wants to buy → directly give them Stripe link
+    if (input.toLowerCase().includes("buy")) {
+      const paymentUrl = "https://buy.stripe.com/test_28E4gB3CTcGj8uC53ffUQ00"; // <-- your Stripe Checkout link
+      const botMsg = {
+        role: "assistant",
+        content: `🛒 Sure! You can purchase your travel insurance here:\n\n**👉 [Click to Pay](${paymentUrl})**\n\nOnce payment is completed, I’ll send your confirmation! ✅`,
+      };
+      setMessages((prev) => [...prev, botMsg]);
+    } else {
+      // ✅ Normal chatbot response
       const res = await axios.post("http://127.0.0.1:8000/chat", {
         message: input,
         user_id: "demo_user",
       });
       const botMsg = { role: "assistant", content: res.data.reply };
       setMessages((prev) => [...prev, botMsg]);
-    } catch (err) {
-      console.error(err);
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: "❌ Server error. Please try again later." },
-      ]);
-    } finally {
-      setLoading(false);
     }
-  };
+  } catch (err) {
+    console.error(err);
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "assistant",
+        content:
+          "⚠️ An error occurred while processing your request. Please try again.",
+      },
+    ]);
+  } finally {
+    setLoading(false);
+  }
+};
+
+  useEffect(() => {
+  // Load saved messages on startup
+  const savedMessages = localStorage.getItem("chatMessages");
+  if (savedMessages) {
+    setMessages(JSON.parse(savedMessages));
+  }
+}, []);
+
+useEffect(() => {
+  // Save messages on every update
+  localStorage.setItem("chatMessages", JSON.stringify(messages));
+}, [messages]);
+
+
+  useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("payment") === "success") {
+    setMessages(prev => [
+      ...prev,
+      {
+        role: "assistant",
+        content:
+          "✅ Payment successful! Your policy has been issued and a confirmation email has been sent."
+      }
+    ]);
+  }
+}, []);
+
 
   const resetConversation = async () => {
     try {
