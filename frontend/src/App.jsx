@@ -6,25 +6,33 @@ import {
   Avatar,
   Typography,
   Layout,
-  theme,
+  message as AntMessage,
 } from "antd";
 import {
   SendOutlined,
   UserOutlined,
   RobotOutlined,
+  ReloadOutlined,
 } from "@ant-design/icons";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import axios from "axios";
 
 const { Content, Header, Footer } = Layout;
 const { Text } = Typography;
 
+const GREETING_MESSAGE = {
+  role: "assistant",
+  content:
+    "👋 Hey there! I’m **Milo**, your friendly travel insurance guide. Before we get started, tell me a bit about your trip ✈️ — where are you headed, how long will you be staying, and what’s the purpose of your travel?",
+};
+
 function App() {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([GREETING_MESSAGE]);
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
 
-  // Auto-scroll to bottom when messages update
   useEffect(() => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -42,8 +50,8 @@ function App() {
     try {
       const res = await axios.post("http://127.0.0.1:8000/chat", {
         message: input,
+        user_id: "demo_user",
       });
-
       const botMsg = { role: "assistant", content: res.data.reply };
       setMessages((prev) => [...prev, botMsg]);
     } catch (err) {
@@ -57,13 +65,19 @@ function App() {
     }
   };
 
+  const resetConversation = async () => {
+    try {
+      await axios.post("http://127.0.0.1:8000/reset");
+      setMessages([GREETING_MESSAGE]);
+      AntMessage.success("Conversation reset!");
+    } catch (err) {
+      console.error(err);
+      AntMessage.error("Failed to reset conversation.");
+    }
+  };
+
   return (
-    <Layout
-      style={{
-        minHeight: "100vh",
-        background: theme.defaultAlgorithm.colorBgContainer,
-      }}
-    >
+    <Layout style={{ minHeight: "100vh", background: "#f0f2f5" }}>
       <Header
         style={{
           color: "white",
@@ -83,15 +97,15 @@ function App() {
         }}
       >
         <div style={{ width: "100%", maxWidth: 700 }}>
-          {/* Scrollable Chat Box */}
           <div
             style={{
               height: "65vh",
               overflowY: "auto",
               padding: "16px",
               background: "#fff",
-              border: "1px solid #f0f0f0",
+              border: "1px solid #d9d9d9",
               borderRadius: 10,
+              boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
             }}
           >
             <List
@@ -104,7 +118,7 @@ function App() {
                       msg.role === "user" ? "#e6f7ff" : "#fafafa",
                     borderRadius: 8,
                     marginBottom: 8,
-                    transition: "all 0.2s ease-in-out",
+                    color: "#000", // 🔥 darker text
                   }}
                 >
                   <List.Item.Meta
@@ -122,38 +136,55 @@ function App() {
                       )
                     }
                     title={
-                      <Text strong>
+                      <Text strong style={{ color: "#000" }}>
                         {msg.role === "user" ? "You" : "Milo"}
                       </Text>
                     }
                     description={
-                      <span style={{ whiteSpace: "pre-wrap" }}>
-                        {msg.content}
-                      </span>
+                      <div
+                        style={{
+                          color: "#333", // darker readable text
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                          {msg.content}
+                        </ReactMarkdown>
+                      </div>
                     }
                   />
                 </List.Item>
               )}
             />
-            {/* Invisible marker for scroll-to-bottom */}
             <div ref={chatEndRef} />
           </div>
 
-          {/* Input Bar */}
           <div
             style={{
               display: "flex",
               marginTop: 16,
               gap: 8,
+              alignItems: "center",
             }}
           >
+            <Button
+              icon={<ReloadOutlined />}
+              onClick={resetConversation}
+              shape="circle"
+              danger
+              type="default"
+              title="Reset conversation"
+            />
+
             <Input
               placeholder="Ask me about travel insurance..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onPressEnter={sendMessage}
               disabled={loading}
+              style={{ fontSize: "1rem" }}
             />
+
             <Button
               type="primary"
               icon={<SendOutlined />}

@@ -24,20 +24,45 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Request model
+# In-memory session history
+chat_sessions = {}  # e.g., {"default_user": [{"role": "user", "content": "..."}, ...]}
+
 class ChatRequest(BaseModel):
     message: str
+    user_id: str = "default_user"
 
 @app.post("/chat")
 async def chat(req: ChatRequest):
-    """Basic chat endpoint using GPT OSS 20B model on Groq"""
+    """Chat endpoint with memory"""
+    user_id = req.user_id
+    user_msg = {"role": "user", "content": req.message}
+
+    # Initialize session if new
+    if user_id not in chat_sessions:
+        chat_sessions[user_id] = [
+            {"role": "system", "content": "You are Milo, a friendly and witty travel insurance assistant who remembers past context."}
+        ]
+
+    # Add user message to history
+    chat_sessions[user_id].append(user_msg)
+
+    # Call Groq API with full chat history
     completion = client.chat.completions.create(
         model="openai/gpt-oss-20b",
-        messages=[
-            {"role": "system", "content": "You are Milo, a friendly and witty insurance assistant."},
-            {"role": "user", "content": req.message},
-        ],
+        messages=chat_sessions[user_id],
+        temperature=0.8,
+        max_completion_tokens=1024,
     )
 
-    reply = completion.choices[0].message.content
+    reply = completion.choices[0].message.content.strip()
+
+    # Store assistant reply in memory
+    chat_sessions[user_id].append({"role": "assistant", "content": reply})
+
     return {"reply": reply}
+
+@app.post("/reset")
+async def reset_chat():
+    """Optional endpoint to clear all session memory"""
+    chat_sessions.clear()
+    return {"status": "cleared"}
